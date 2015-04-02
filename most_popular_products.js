@@ -1,10 +1,10 @@
 var fs = require('fs');
 
-//module.exports =function(filePath){
-//this.productNames = function(callback){	
-	exports.most_popular_products = function(filePath){
+module.exports =function(){
+this.productNames = function(filePath){	
+//exports.most_popular_products = function(){
 
-		var linesInfile = fs.readFileSync('Nelisa Sales History.csv', 'utf8');
+		var linesInfile = fs.readFileSync(filePath, 'utf8');
 
 		var rows = linesInfile.split('\n');
 		//console.log(rows.length);
@@ -13,41 +13,66 @@ var fs = require('fs');
         
         rows.forEach(function(row) {
 		var columns = row.split(';');
-		var currentItem = columns[2],
-			numberSold = columns[3]
+		var currentItem = columns[2];
+			numberSold = columns[3];
 
-		var SalesObj = {}
-		  currentItem =
+		var salesObj = {
+		  itemName: columns[2],
+		  soldItem: Number(columns[3])
+       };
+       listOfProduct.push(salesObj);
+	});
+        return listOfProduct;
+    }
 
-	
-			itemMap[currentItem]=itemMap[currentItem]+ Number(numberSold);
-		});
-	    if(itemMap[currentItem]=== undefined){
+    this.groupItems = function(products){
+    	var itemMap = {};
+
+    	products.forEach(function(products){
+    		var currentItem = products.itemName;
+    		var numberSold = products.soldItem;
+
+    		 if(itemMap[currentItem]=== undefined){
 				itemMap[currentItem]=0;
 			}
 
-		var itemMap = {};
+			itemMap[currentItem]=itemMap[currentItem]+ Number(numberSold);
 
-		
-	  return itemMap;
-	}
+    	});
+    	return itemMap;
+    }; 
 
-	exports.most_popular_products= function(itemMap){
+	
+	this.mostpopularproducts= function(itemMap){
 		var mostPopularProdct = {};
 		var max = 0;
 		for(var prop in itemMap){
 			var value = itemMap[prop];
 			if(itemMap[prop] > max){
-				max = itemMap[prop]
+				max = itemMap[prop];
 				mostPopularProdct = {
 					name: prop,
 					amt: max
-				}
-			}
-		}
-	
-		return mostPopularProdct;
-	}
 
- //}
-//}
+				}
+			};
+		}
+		return mostPopularProdct;
+	};
+    
+     this.leastpopularproducts= function(itemMap){
+		var leastPopularProdct = {};
+		var min = 172;
+		for(var prop in itemMap){
+			var value = itemMap[prop];
+			if(itemMap[prop] < min){
+				min = itemMap[prop];
+				leastPopularProdct = {
+					name: prop,
+					amt: min
+				}
+			};
+		}
+		return leastPopularProdct;
+     }
+  };
