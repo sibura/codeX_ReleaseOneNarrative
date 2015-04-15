@@ -8,10 +8,16 @@ var products = new Products();
 var sortedList = products.productNames('Nelisa	Sales History.csv');
 
 var group = products.groupItems(sortedList);
-
 var mostPopular = products.mostpopularproducts(group);
 var leastPopular = products.leastpopularproducts(group);
 
 
+   var group = products.groupItems(sortedCategory);
+var mostPopularCateg = products.mostpopularCateg(group);
+var leastPopularCateg = products.leastpopularCateg(group);
+
 	console.log(leastPopular);
 	console.log(mostPopular);
+
+	console.log(mostPopularCateg);
+	console.log(leastpopularCateg);
